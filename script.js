@@ -1,28 +1,51 @@
-async function askQuestion() {
+const API_URL = 'https://your-space-name.hf.space/generate';
+
+async function ask() {
     const question = document.getElementById('question').value;
-    const answerDiv = document.getElementById('answer');
-    const loading = document.getElementById('loading');
+    const chatOutput = document.getElementById('chat-output');
     
-    if (!question) {
-        alert('الرجاء إدخال سؤال');
-        return;
-    }
+    if (!question) return;
+
+    // عرض السؤال
+    chatOutput.innerHTML += `
+        <div class="message user-message">
+            <strong>أنت:</strong> ${question}
+        </div>
+    `;
+
+    // عرض مؤشر التحميل
+    const loading = document.createElement('div');
+    loading.className = 'loading';
+    loading.innerHTML = `
+        <div class="spinner"></div>
+        جاري تحضير الإجابة...
+    `;
+    chatOutput.appendChild(loading);
 
     try {
-        loading.classList.remove('hidden');
-        answerDiv.innerHTML = '';
-        
-        const response = await fetch('https://hoc137-a2.hf.space/generate?question=' + encodeURIComponent(question));
-        
-        if (!response.ok) {
-            throw new Error('خطأ في الحصول على الإجابة');
-        }
-        
+        const response = await fetch(`${API_URL}?question=${encodeURIComponent(question)}`);
         const data = await response.json();
-        answerDiv.innerHTML = data.output;
+        
+        // إزالة مؤشر التحميل
+        loading.remove();
+        
+        // عرض الإجابة
+        chatOutput.innerHTML += `
+            <div class="message bot-message">
+                <strong>المساعد:</strong> ${data.answer}
+            </div>
+        `;
     } catch (error) {
-        answerDiv.innerHTML = 'حدث خطأ: ' + error.message;
-    } finally {
-        loading.classList.add('hidden');
+        loading.remove();
+        chatOutput.innerHTML += `
+            <div class="message error">
+                حدث خطأ: ${error.message}
+            </div>
+        `;
     }
+
+    // مسح حقل الإدخال
+    document.getElementById('question').value = '';
+    // التمرير للأسفل
+    chatOutput.scrollTop = chatOutput.scrollHeight;
 }
