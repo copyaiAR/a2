@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <title>مساعد CrewAI</title>
@@ -7,15 +7,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>مساعد وثائق CrewAI الذكي</h1>
-        <div class="input-group">
-            <input type="text" id="question" placeholder="اطرح سؤالك هنا...">
-            <button onclick="askQuestion()">إرسال</button>
-        </div>
-        <div id="answer" class="answer-box"></div>
-        <div id="loading" class="loading hidden">
-            <div class="spinner"></div>
-            <p>جاري البحث عن الإجابة...</p>
+        <header>
+            <h1>المساعد الذكي لوثائق CrewAI</h1>
+            <p>اطرح أي سؤال متعلق بالتوثيق الرسمي</p>
+        </header>
+        
+        <div class="chat-container">
+            <div id="chat-output"></div>
+            <div class="input-group">
+                <input type="text" id="question" placeholder="اكتب سؤالك هنا...">
+                <button onclick="ask()">إرسال</button>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
