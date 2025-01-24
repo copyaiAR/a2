@@ -1,4 +1,4 @@
-const API_URL = 'https://your-space-name.hf.space/generate';
+const API_URL = 'https://hoc137-a2.hf.space/generate';
 
 async function ask() {
     const question = document.getElementById('question').value;
