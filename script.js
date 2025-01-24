@@ -12,7 +12,7 @@ async function askQuestion() {
         loading.classList.remove('hidden');
         answerDiv.innerHTML = '';
         
-        const response = await fetch('https://YOUR_HUGGINGFACE_SPACE_URL.ngrok-free.app/generate?question=' + encodeURIComponent(question));
+        const response = await fetch('https://hoc137-a2.hf.space/generate?question=' + encodeURIComponent(question));
         
         if (!response.ok) {
             throw new Error('خطأ في الحصول على الإجابة');
